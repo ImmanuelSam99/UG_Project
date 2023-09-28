@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block bank %}active{% endblock %}
+{% block bank_list %}active{% endblock %}
+{% block content %}
+{% load staticfiles %}
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <ol class="breadcrumb">
+            <li><a href="{% url 'common:index' %}"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="{% url 'bank:detail_list' pk=bank.id %}">Bank Detail</a></li>
+            <li class="active">Add Credit</li>
+        </ol>
+    </section>
+    <br>
+    <section class="content">
+        <div class="row">
+            <div class="col-md-6 pull-left">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="text-center"><b>{{ bank.name|title }} |</b> <small><b>Add Credit Amount</b></small></h3>
+                    </div>
+                    <div class="box-body">
+                        <form action="{% url 'bank:debit' pk=bank.id %}" method="post" autocomplete="off">
+                            {% csrf_token %}
+                            <div class="row">
+                                <input type="hidden" name="bank" value="{{bank.id}}">
+                                <div class="col-md-12 pull-left form-group">
+                                    <label class="form-control-label">Credit Amount <span style="color:red">*</span></label>
+                                    <input type="text" name="credit" class="form-control form-control-alternative" placeholder="Credit Amount" required>
+                                </div>
+                                <div class="col-md-12 pull-left form-group">
+                                    <label class="form-control-label">Date <span style="color:red">*</span></label>
+                                    <input type="date" name="date" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 pull-left form-group">
+                                    <label class="form-control-label">Detail <span style="color:red">*</span></label>
+                                    <input type="text" name="description" class="form-control form-control-alternative" placeholder="Detail" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 pull-right form-group">
+                                    <label class="form-control-label"></label>
+                                    <button type="submit" value="Create" class="btn btn-primary form-control">Save</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+{% endblock %}
